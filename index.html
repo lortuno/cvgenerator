@@ -1,0 +1,40 @@
+<html>
+<head>
+	<title>Drones</title>
+	<link href="src/assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="node_modules/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
+	<script src="node_modules/traceur/bin/traceur.js"></script>
+	<script src="src/assets/jssource/data.js"></script>
+	<script src="src/assets/jssource/app.js"></script>
+	<script src="https://unpkg.com/vue@2.2.5"></script>
+</head>
+<body>
+	<main id="vue">
+		<article class="container-fluid" v-cloak>
+			<h1 v-text="appName">{{ appName }}</h1>
+			<section id="main">
+				<h2 v-text="appTitle">
+					{{ appTitle }}
+				</h2>
+				<form v-for="question in questions">
+					<div class="form-group">
+						<label v-bind:id=" 'r-field-' + question.number ">
+							Pregunta <span> {{ question.number }}</span>: {{ question.title}}
+						</label>
+						<div>
+							<textarea v-bind:id=" 'r-field-' + question.number "
+									  class="form-control" cols="3"></textarea>
+						</div>
+					</div>
+					<button type="button"
+							class="btn btn-dark btn-block"
+							v-on:click="goNext">
+						Siguiente
+					</button>
+				</form>
+			</section>
+		</article>
+	</main>
+</body>
+</html>
