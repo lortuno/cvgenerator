@@ -1,28 +1,31 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
+	<meta charset="UTF-8">
 	<title>Drones</title>
-	<link href="src/assets/css/style.css" rel="stylesheet" type="text/css"/>
-	<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-	<link href="node_modules/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
-	<script src="node_modules/traceur/bin/traceur.js"></script>
-	<script src="src/assets/jssource/helper.js"></script>
-	<script src="src/assets/jssource/data.js"></script>
-	<script src="src/assets/jssource/app.js"></script>
+	<link href="/src/assets/css/style.css" rel="stylesheet" type="text/css"/>
+	<link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/node_modules/bootstrap/dist/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css"/>
+	<script src="/node_modules/traceur/bin/traceur.js"></script>
+	<script src="/src/assets/jssource/helper.js"></script>
+	<script src="/src/assets/jssource/data.js"></script>
+	<script src="/src/assets/jssource/app.js"></script>
 	<script src="https://unpkg.com/vue@2.2.5"></script>
 </head>
 <body>
-	<main id="vue">
-		<article class="container-fluid" v-cloak>
-			<h1 v-text="appName">{{ appName }}</h1>
-			<section id="main">
-				<h2 v-text="appTitle">
-					{{ appTitle }}
-				</h2>
-				<form v-for="question in questions"
-					v-bind:class=" isFirstQuestion( question.number ) "
-					v-bind:id=" 'r-form-' + question.number ">
+<main id="vue">
+	<article class="container-fluid" v-cloak>
+		<h1 v-text="appName">{{ appName }}</h1>
+		<section id="main">
+			<h2 v-text="appTitle">
+				{{ appTitle }}
+			</h2>
+			<form action="src/html/outputs/basic.html" method="get">
+				<div v-for="question in questions"
+					 v-bind:class=" isFirstQuestion( question.number ) "
+					 v-bind:id=" 'r-section-' + question.number ">
 					<div class="form-group">
-						<label v-bind:id=" 'r-field-' + question.number ">
+						<label v-bind:for=" 'r-field-' + question.number ">
 							Pregunta <span> {{ question.number }}</span>: {{ question.title}}
 						</label>
 						<div>
@@ -33,23 +36,29 @@
 					<div class="row">
 						<div class="col-sm-6">
 							<button type="button"
-									class="btn btn-dark btn-block"
+									class="btn btn-outline-dark btn-block"
 									v-on:click="changeQuestion( question.number, questions, 'less' )">
 								Anterior
 							</button>
 						</div>
-						<div class="col-sm-6">
+						<div class="col-sm-6" v-if=" questions.length !== question.number ">
 							<button type="button"
 									class="btn btn-dark btn-block"
 									v-on:click="changeQuestion( question.number, questions, 'more' )">
 								Siguiente
 							</button>
 						</div>
+						<div class="col-sm-6" v-else>
+							<button type="submit"
+									class="btn btn-success btn-block">
+								Enviar
+							</button>
+						</div>
 					</div>
-
-				</form>
-			</section>
-		</article>
-	</main>
+				</div>
+			</form>
+		</section>
+	</article>
+</main>
 </body>
 </html>

@@ -26,6 +26,7 @@ window.onload = function () {
             changeQuestion: function (id, list, type = 'more') {
                 let nextNumber = false;
                 let questionNumber = false;
+                const sectionPrefix = 'r-section-';
 
                 if (type === 'more') {
                     nextNumber = id + 1;
@@ -37,8 +38,8 @@ window.onload = function () {
                 console.log(nextNumber);
 
                 if (questionNumber) {
-                    let nextId = 'r-form-' + questionNumber;
-                    let currentId = 'r-form-' + id;
+                    let nextId = sectionPrefix + questionNumber;
+                    let currentId = sectionPrefix + id;
                     showElementById(nextId);
                     hideElementById(currentId);
 
