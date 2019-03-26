@@ -1,27 +1,24 @@
+import {questions} from "/src/data/questions-data.js";
+import * as helper from "/src/services/helper.js";
+import {QuestionsDataService} from '/src/services/questions-data-service.js';
+
+let questionsService = new QuestionsDataService();
+let questionsList = questionsService.loadData(questions);
+console.log(questionsService);
+console.log(questionsList);
+console.log(questions);
+
 window.onload = function () {
     const vue = new Vue({
         el: '#vue',
         data: {
             appTitle: 'Formulario',
             appName: 'Mi aplicación',
-            questions: [
-                {
-                    number: 1,
-                    title: 'Nombre y apellidos',
-                },
-                {
-                    number: 2,
-                    title: 'Profesión',
-                },
-                {
-                    number: 3,
-                    title: 'Aptitudes',
-                }
-            ],
+            questions: questions,
         },
         methods: {
-            isFirstQuestion: function(id) {
-                return  (id === 1) ? '' : 'hide';
+            isFirstQuestion: function (number) {
+                return  (number === 1) ? '' : 'hide';
             },
             changeQuestion: function (id, list, type = 'more') {
                 let nextNumber = false;
@@ -40,10 +37,10 @@ window.onload = function () {
                 if (questionNumber) {
                     let nextId = sectionPrefix + questionNumber;
                     let currentId = sectionPrefix + id;
-                    showElementById(nextId);
-                    hideElementById(currentId);
+                    helper.showElementById(nextId);
+                    helper.hideElementById(currentId);
 
-                     return true;
+                    return true;
                 }
                 else {
                     alert('Ya no hay más preguntas');
