@@ -3,10 +3,12 @@ import * as helper from "/src/services/helper.js";
 import {QuestionsDataService} from '/src/services/questions-data-service.js';
 
 let questionsService = new QuestionsDataService();
-let questionsList = questionsService.loadData(questions);
+questionsService.loadData(questions);
 console.log(questionsService);
-console.log(questionsList);
 console.log(questions);
+
+for (let e of questionsService.errors )
+    console.log(e.message);
 
 window.onload = function () {
     const vue = new Vue({
