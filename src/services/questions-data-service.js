@@ -9,8 +9,13 @@ export class QuestionsDataService {
 
     loadData(questions) {
         for (let data of questions) {
-            let q = this.loadQuestion(data);
-            this.question.push(q);
+            if (this.validateQuestionData(data)) {
+	            let q = this.loadQuestion(data);
+	            this.question.push(q);
+            } else {
+                let e = new DataError('invalid question data', data);
+                this.errors.push(e);
+            }
         }
     }
 
@@ -23,5 +28,26 @@ export class QuestionsDataService {
         }
 
         return null;
+    }
+
+    validateQuestionData(question) {
+        let requiredProperties = 'title number'.split(' ');
+        let hasErrors = false;
+
+        for (let field of requiredProperties) {
+            console.log(field);
+            console.log(question);
+            if (!question[field]) {
+                this.errors.push(new DataError(`invalid field ${field}`),question);
+                hasErrors = true;
+            }
+        }
+
+        if (Number.isNaN((Number.parseFloat(question.number)))) {
+	        this.errors.push(new DataError(`invalid number`),question);
+	        hasErrors = true;
+        }
+
+        return hasErrors;
     }
 }
