@@ -12,7 +12,7 @@
   "dependencies": {
     "bootstrap": "^4.3.1",
     "es6-module-loader": "^0.17.11",
-    "jquery": "^2.2.3",
+    "jquery": "^3.3.1",
     "systemjs": "^0.19.27",
     "traceur": "0.0.108"
   },
