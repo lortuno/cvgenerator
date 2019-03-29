@@ -36,6 +36,11 @@ export class QuestionsDataService {
         })
     }
 
+    filterQuestionByTitle(filter) {
+	    let stringToFilter = filter.toLowerCase();
+        return this.question.filter(question => question.title.toLowerCase().indexOf(stringToFilter) >= 0);
+    }
+
     loadQuestion(question) {
         try {
 	        let q = new Question(question.title, question.number);

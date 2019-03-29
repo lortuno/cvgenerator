@@ -6,8 +6,10 @@ let questionsService = new QuestionsDataService();
 questionsService.loadData(questions);
 let test = questionsService.getQuestionByNumber(3);
 let ordered = questionsService.getQuestionsSortedByTitle();
+let filtered = questionsService.filterQuestionByTitle('Nombre');
 console.log(test);
 console.log(ordered);
+console.log(filtered);
 
 for (let e of questionsService.errors )
     console.log(e.message);
