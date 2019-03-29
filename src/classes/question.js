@@ -1,5 +1,5 @@
 export class Question {
-    constructor(number, title) {
+    constructor(title, number) {
         this.number = number;
         this.title = title;
     }

@@ -8,6 +8,7 @@ export class QuestionsDataService {
     }
 
     loadData(questions) {
+	    let i = 0;
         for (let data of questions) {
             if (this.validateQuestionData(data)) {
 	            let q = this.loadQuestion(data);
@@ -17,6 +18,22 @@ export class QuestionsDataService {
                 this.errors.push(e);
             }
         }
+    }
+    
+    getQuestionByNumber(number) {
+        return this.question.find((question) => question.number === number);
+    }
+
+    getQuestionsSortedByTitle() {
+        return this.question.sort( function (question1, question2) {
+            if (question1.title < question2.title ) {
+                return -1;
+            } else if(question2.title < question1.title) {
+                return 1;
+            } else {
+	            return 0;
+            }
+        })
     }
 
     loadQuestion(question) {
@@ -35,8 +52,6 @@ export class QuestionsDataService {
         let hasErrors = false;
 
         for (let field of requiredProperties) {
-            console.log(field);
-            console.log(question);
             if (!question[field]) {
                 this.errors.push(new DataError(`invalid field ${field}`),question);
                 hasErrors = true;
@@ -48,6 +63,6 @@ export class QuestionsDataService {
 	        hasErrors = true;
         }
 
-        return hasErrors;
+        return !hasErrors;
     }
 }

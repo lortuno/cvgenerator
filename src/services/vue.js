@@ -4,8 +4,10 @@ import {QuestionsDataService} from '/src/services/questions-data-service.js';
 
 let questionsService = new QuestionsDataService();
 questionsService.loadData(questions);
-console.log(questionsService);
-console.log(questions);
+let test = questionsService.getQuestionByNumber(3);
+let ordered = questionsService.getQuestionsSortedByTitle();
+console.log(test);
+console.log(ordered);
 
 for (let e of questionsService.errors )
     console.log(e.message);
