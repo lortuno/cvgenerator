@@ -1,6 +1,9 @@
+import $ from 'jquery';
 import {questions} from "/src/data/questions-data.js";
 import * as helper from "/src/services/helper.js";
 import {QuestionsDataService} from '/src/services/questions-data-service.js';
+import {Button} from "/src/ui/button.js";
+import {DataTable} from "/src/ui/data-table.js";
 
 let questionsService = new QuestionsDataService();
 questionsService.loadData(questions);
@@ -11,8 +14,14 @@ console.log(test);
 console.log(ordered);
 console.log(filtered);
 
+let headers = "Title Number".split(' ');
+let dt = new DataTable(headers, questionsService.question);
+dt.appendToElement($('.w-table'));
+
 for (let e of questionsService.errors )
     console.log(e.message);
+let b = new Button('hola');
+b.appendToElement($('body'));
 
 window.onload = function () {
     const vue = new Vue({
