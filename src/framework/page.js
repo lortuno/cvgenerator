@@ -8,8 +8,11 @@ export class Page extends BaseElement {
         this.loadTimes = 0;
     }
 
-    resetLoadTimes() {
-        this.loadTimes = 0;
-        console.log('reset times', this.loadTimes);
+    setLoadTimes(times = 0) {
+        this.loadTimes = times;
+    }
+
+    getLoadTimes() {
+        return this.loadTimes;
     }
 }

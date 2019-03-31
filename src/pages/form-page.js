@@ -9,18 +9,18 @@ export class FormPage extends Page {
 
     constructor() {
         super('Form');
-        this.loadVue();
+        this.isVueLoaded = false;
     }
 
     loadVue() {
-        let times = this.loadTimes;
+        let isVueLoaded = this.isVueLoaded;
         document.addEventListener("DOMNodeInserted", function () {
             let vueNode = document.querySelector("#vue") !== null;
-            console.log('n', times);
+            console.log('is it true', isVueLoaded);
             console.log('vue', vueNode);
-            if (times === 0 && vueNode) {
-                times++;
-                this.loadTimes = times;
+            if (isVueLoaded === false && vueNode) {
+                console.log('inside', isVueLoaded);
+                isVueLoaded = true;
                 const vue = new Vue({
                     el: '#vue',
                     data: {
@@ -69,7 +69,14 @@ export class FormPage extends Page {
 
     createElement() {
         super.createElement();
-        super.resetLoadTimes();
+        this.setLoadTimes();
+    }
+
+    setLoadTimes() {
+        super.setLoadTimes();
+        this.isVueLoaded = super.getLoadTimes() === true;
+        this.loadVue();
+        super.setLoadTimes(1);
     }
 
     getElementString() {

@@ -8,7 +8,6 @@ export class OutputPage extends Page {
 
     createElement() {
         super.createElement();
-        super.resetLoadTimes();
     }
 
     getElementString() {

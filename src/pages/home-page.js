@@ -10,12 +10,10 @@ export class HomePage extends Page {
 
     createElement() {
         super.createElement();
-        super.resetLoadTimes();
 
         let headers = 'Title Number'.split(' ');
         let t = new DataTable(headers, application.dataService.question);
         t.appendToElement(this.element);
-
     }
 
     getElementString() {
