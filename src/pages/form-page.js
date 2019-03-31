@@ -3,20 +3,24 @@ import * as helper from "/src/services/helper.js";
 import {questions} from "/src/data/questions-data.js";
 import {Button} from "/src/ui/button.js";
 import {application} from "/src/framework/index.js";
+import $ from "jquery";
 
 export class FormPage extends Page {
 
     constructor() {
         super('Form');
+        this.loadVue();
     }
 
     loadVue() {
-        let loadTimes = 0;
-        document.addEventListener("DOMNodeInserted", function() {
+        let times = this.loadTimes;
+        document.addEventListener("DOMNodeInserted", function () {
             let vueNode = document.querySelector("#vue") !== null;
-
-            if (loadTimes === 0 && vueNode){
-                loadTimes++;
+            console.log('n', times);
+            console.log('vue', vueNode);
+            if (times === 0 && vueNode) {
+                times++;
+                this.loadTimes = times;
                 const vue = new Vue({
                     el: '#vue',
                     data: {
@@ -55,61 +59,60 @@ export class FormPage extends Page {
                         },
                     }
                 });
+
+                let b = new Button('Enviar', 'btn-success btn-block e-send');
+                b.appendToElement($('.w-send-btn'));
+                b.element.click(() => application.activateRoute('Output'));
             }
         }, false);
     }
 
     createElement() {
         super.createElement();
-        this.loadVue();
+        super.resetLoadTimes();
     }
 
     getElementString() {
 
-        return '\t<article id="vue" class="container-fluid" v-cloak>\n' +
-            '\t\t<h1 v-text="appName">{{ appName }}</h1>\n' +
-            '\t\t<section id="main">\n' +
-            '\t\t\t<h2 v-text="appTitle">\n' +
-            '\t\t\t\t{{ appTitle }}\n' +
-            '\t\t\t</h2>\n' +
-            '\t\t\t<form>\n' +
-            '\t\t\t\t<div v-for="question in questions"\n' +
-            '\t\t\t\t\t v-bind:class=" isFirstQuestion( question.number ) "\n' +
-            '\t\t\t\t\t v-bind:id=" \'r-section-\' + question.number ">\n' +
-            '\t\t\t\t\t<div class="form-group">\n' +
-            '\t\t\t\t\t\t<label v-bind:for=" \'r-field-\' + question.number ">\n' +
-            '\t\t\t\t\t\t\tPregunta <span> {{ question.number }}</span>: {{ question.title}}\n' +
-            '\t\t\t\t\t\t</label>\n' +
-            '\t\t\t\t\t\t<div>\n' +
-            '\t\t\t\t\t\t\t<textarea v-bind:id=" \'r-field-\' + question.number "\n' +
-            '\t\t\t\t\t\t\t\t\t  class="form-control" cols="3"></textarea>\n' +
-            '\t\t\t\t\t\t</div>\n' +
-            '\t\t\t\t\t</div>\n' +
-            '\t\t\t\t\t<div class="row">\n' +
-            '\t\t\t\t\t\t<div class="col-sm-6">\n' +
-            '\t\t\t\t\t\t\t<button type="button"\n' +
-            '\t\t\t\t\t\t\t\t\tclass="btn btn-outline-dark btn-block"\n' +
-            '\t\t\t\t\t\t\t\t\tv-on:click="changeQuestion( question.number, questions, \'less\' )">\n' +
-            '\t\t\t\t\t\t\t\tAnterior\n' +
-            '\t\t\t\t\t\t\t</button>\n' +
-            '\t\t\t\t\t\t</div>\n' +
-            '\t\t\t\t\t\t<div class="col-sm-6" v-if=" questions.length !== question.number ">\n' +
-            '\t\t\t\t\t\t\t<button type="button"\n' +
-            '\t\t\t\t\t\t\t\t\tclass="btn btn-dark btn-block"\n' +
-            '\t\t\t\t\t\t\t\t\tv-on:click="changeQuestion( question.number, questions, \'more\' )">\n' +
-            '\t\t\t\t\t\t\t\tSiguiente\n' +
-            '\t\t\t\t\t\t\t</button>\n' +
-            '\t\t\t\t\t\t</div>\n' +
-            '\t\t\t\t\t\t<div class="col-sm-6 w-send-btn" v-else>\n' +
-            '\t\t\t\t\t\t\t<button type="button"\n' +
-            '\t\t\t\t\t\t\t\t\tclass="btn btn-success btn-block e-send">\n' +
-            '\t\t\t\t\t\t\t\tEnviar\n' +
-            '\t\t\t\t\t\t\t</button>\n' +
-            '\t\t\t\t\t\t</div>\n' +
-            '\t\t\t\t\t</div>\n' +
-            '\t\t\t\t</div>\n' +
-            '\t\t\t</form>\n' +
-            '\t\t</section>\n' +
-            '\t</article>';
+        return '<article id="vue" class="container-fluid" v-cloak>' +
+            '<h1 v-text="appName">{{ appName }}</h1>' +
+            '<section id="main">' +
+            '<h2 v-text="appTitle">' +
+            '{{ appTitle }}' +
+            '</h2>' +
+            '<form>' +
+            '<div v-for="question in questions"' +
+            ' v-bind:class=" isFirstQuestion( question.number ) "' +
+            ' v-bind:id=" \'r-section-\' + question.number ">' +
+            '<div class="form-group">' +
+            '<label v-bind:for=" \'r-field-\' + question.number ">' +
+            'Pregunta <span> {{ question.number }}</span>: {{ question.title}}' +
+            '</label>' +
+            '<div>' +
+            '<textarea v-bind:id=" \'r-field-\' + question.number "' +
+            '  class="form-control" cols="3"></textarea>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col-sm-6">' +
+            '<button type="button"' +
+            'class="btn btn-outline-dark btn-block"' +
+            'v-on:click="changeQuestion( question.number, questions, \'less\' )">' +
+            'Anterior' +
+            '</button>' +
+            '</div>' +
+            '<div class="col-sm-6" v-if=" questions.length !== question.number ">' +
+            '<button type="button"' +
+            'class="btn btn-dark btn-block"' +
+            'v-on:click="changeQuestion( question.number, questions, \'more\' )">' +
+            'Siguiente' +
+            '</button>' +
+            '</div>' +
+            '<div class="col-sm-6 w-send-btn" v-else></div>' +
+            '</div>' +
+            '</div>' +
+            '</form>' +
+            '</section>' +
+            '</article>';
     }
 }
