@@ -13,53 +13,5 @@
 	<script src="https://unpkg.com/vue@2.2.5"></script>
 </head>
 <body>
-	<main id="vue">
-	<header class="w-header"></header>
-	<article class="container-fluid" v-cloak>
-		<h1 v-text="appName">{{ appName }}</h1>
-		<section id="main">
-			<h2 v-text="appTitle">
-				{{ appTitle }}
-			</h2>
-			<form action="src/html/outputs/basic.html" method="get">
-				<div v-for="question in questions"
-					 v-bind:class=" isFirstQuestion( question.number ) "
-					 v-bind:id=" 'r-section-' + question.number ">
-					<div class="form-group">
-						<label v-bind:for=" 'r-field-' + question.number ">
-							Pregunta <span> {{ question.number }}</span>: {{ question.title}}
-						</label>
-						<div>
-							<textarea v-bind:id=" 'r-field-' + question.number "
-									  class="form-control" cols="3"></textarea>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-6">
-							<button type="button"
-									class="btn btn-outline-dark btn-block"
-									v-on:click="changeQuestion( question.number, questions, 'less' )">
-								Anterior
-							</button>
-						</div>
-						<div class="col-sm-6" v-if=" questions.length !== question.number ">
-							<button type="button"
-									class="btn btn-dark btn-block"
-									v-on:click="changeQuestion( question.number, questions, 'more' )">
-								Siguiente
-							</button>
-						</div>
-						<div class="col-sm-6" v-else>
-							<button type="submit"
-									class="btn btn-success btn-block">
-								Enviar
-							</button>
-						</div>
-					</div>
-				</div>
-			</form>
-		</section>
-	</article>
-</main>
 </body>
 </html>

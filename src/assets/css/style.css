@@ -5,3 +5,11 @@
 .hide {
     display: none;
 }
+
+.margin-top {
+    margin-top: 1em;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

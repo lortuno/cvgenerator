@@ -5,6 +5,11 @@ import {QuestionsDataService} from '/src/services/questions-data-service.js';
 import {Button} from "/src/ui/button.js";
 import {DataTable} from "/src/ui/data-table.js";
 import {HeaderBar} from '/src/ui/header-bar.js';
+import {ApplicationBase} from '/src/framework/application-base.js';
+import {Page} from '/src/framework/page.js';
+import {HomePage} from '/src/pages/home-page.js';
+import {OutputPage} from '/src/pages/output-page.js';
+import {FormPage} from "/src/pages/form-page.js";
 
 let questionsService = new QuestionsDataService();
 questionsService.loadData(questions);
