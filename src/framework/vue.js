@@ -4,6 +4,7 @@ import * as helper from "/src/services/helper.js";
 import {QuestionsDataService} from '/src/services/questions-data-service.js';
 import {Button} from "/src/ui/button.js";
 import {DataTable} from "/src/ui/data-table.js";
+import {HeaderBar} from '/src/ui/header-bar.js';
 
 let questionsService = new QuestionsDataService();
 questionsService.loadData(questions);
@@ -16,7 +17,14 @@ console.log(filtered);
 
 let headers = "Title Number".split(' ');
 let dt = new DataTable(headers, questionsService.question);
+
+let hb = new HeaderBar('CV Generator');
+hb.addLink('Home', '');
+hb.addLink('Cars', '');
+hb.addLink('Drones', '');
+hb.addLink('Map', '');
 dt.appendToElement($('.w-table'));
+hb.appendToElement($('.w-header'));
 
 for (let e of questionsService.errors )
     console.log(e.message);
